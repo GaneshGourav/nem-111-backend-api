@@ -11,7 +11,7 @@ app.use(cors());
 
 app.get("/", async (req, res) => {
   try {
-    res.status(200).json({ messg: "you're welcome in Home Page" });
+    res.status(200).json({ messg: "you're welcome in Blog App" });
   } catch (error) {
     res.status(500).json("Interval server Error");
   }
