@@ -1,4 +1,5 @@
 const express = require("express");
+const {allRouter} = require("./router/allRoutes")
 const app = express();
 const PORT = process.env.PORT || 7700;
 
@@ -8,6 +9,8 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(cors());
+
+app.use("/users",allRouter)
 
 app.get("/", async (req, res) => {
   try {
