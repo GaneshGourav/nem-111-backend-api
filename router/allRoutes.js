@@ -36,4 +36,31 @@ allRouter.post("/register",async(req,res)=>{
 })
 
 
+allRouter.post("/login",async(req,res)=>{
+    const {email,password} = req.body;
+
+    let user = await userModel.findOne({email});
+
+    try {
+        
+
+        if(user){
+            bcrypt.compare(password,user.password,async(err,result)=>{
+
+                if(result){
+                    let token = jwt.sign({userId:user._id,username:user.username},"ganesh");
+                    res.status(200).json({mag:"Logged in Successfully",token,userId:user._id})
+                }else {
+                    res.status(400).json({msg:"Your email or password is wrong"})
+                }
+            })
+        }else{
+            res.status(400).json({msg:"You're not registerd , try to register yourself."})
+        }
+    } catch (error) {
+        res.status(500).json({msg:"Internal server error"})
+    }
+})
+
+
 module.exports={allRouter}
